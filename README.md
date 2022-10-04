@@ -3,6 +3,10 @@ Get you a project template that can do both (XR and 'normal' 3D game).
 
 This project example is using Godot 3.5.1
 
+## Providing Launch Options
+
+This is intended to be used with itch.io's [Manifest actions](https://itch.io/docs/itch/integrating/manifest-actions.html)" feature, where one can create different ways to launch a game. 
+
 ## Enforce XR Mode For Quest
 
 Simply add the "always-xr" feature to the android export. 
