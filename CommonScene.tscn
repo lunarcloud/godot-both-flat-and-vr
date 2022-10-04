@@ -1,0 +1,32 @@
+[gd_scene load_steps=6 format=2]
+
+[sub_resource type="PlaneMesh" id=1]
+size = Vector2( 10, 10 )
+
+[sub_resource type="OpenSimplexNoise" id=2]
+period = 32.0
+
+[sub_resource type="NoiseTexture" id=3]
+seamless = true
+as_normalmap = true
+noise = SubResource( 2 )
+
+[sub_resource type="SpatialMaterial" id=4]
+albedo_color = Color( 0.458824, 0.65098, 0.0627451, 1 )
+albedo_texture = SubResource( 3 )
+
+[sub_resource type="BoxShape" id=5]
+extents = Vector3( 4.96566, 0.0764164, 5.29999 )
+
+[node name="Common" type="Spatial"]
+
+[node name="RigidBody" type="RigidBody" parent="."]
+mode = 1
+
+[node name="MeshInstance" type="MeshInstance" parent="RigidBody"]
+mesh = SubResource( 1 )
+skeleton = NodePath("../..")
+material/0 = SubResource( 4 )
+
+[node name="CollisionShape" type="CollisionShape" parent="RigidBody"]
+shape = SubResource( 5 )
