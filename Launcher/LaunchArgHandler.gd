@@ -23,7 +23,7 @@ func _ready():
 		return
 
 	print("Using command-line arguments to determine mode...")
-	if arguments.get("xr") == "true"  or arguments.get("flat") == "true":
+	if arguments.get("xr", "false") == "true" or arguments.get("flat", "true") == "false":
 		launch_xr()
 	else:
 		launch_flat()

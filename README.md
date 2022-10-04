@@ -24,3 +24,8 @@ Use "--flat", "--flat=true", or "--xr=false" for standard flat mode.
 Use "--xr" or "--xr=true" for XR mode.
 
 ![xr-command-option](screenshots/xr-command-option.jpg)
+
+If nothing was provided as command-line argument, a switcher UI will be used.
+
+![no-command-option](screenshots/no-command-option.jpg)
+
