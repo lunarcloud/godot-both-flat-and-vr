@@ -13,14 +13,14 @@ Simply add the "always-xr" feature to the android export.
 
 Don't forget to setup the usual settings like "XR Mode" as "OpenXR".
 
-![export-for-exclusively-xr-platform](/home/sam/GitHub/godot-both-flat-and-vr/screenshots/export-for-exclusively-xr-platform.jpg)
+![export-for-exclusively-xr-platform](screenshots/export-for-exclusively-xr-platform.jpg)
 
 ## Switchable XR / Flat Modes on Desktop
 
 Use no argument, or "--xr=false", for standard flat mode.
 
-![flat-command-option](/home/sam/GitHub/godot-both-flat-and-vr/screenshots/flat-command-option.jpg)
+![flat-command-option](screenshots/flat-command-option.jpg)
 
 Use "--xr", or "--xr=true", for XR mode.
 
-![xr-command-option](/home/sam/GitHub/godot-both-flat-and-vr/screenshots/xr-command-option.jpg)
+![xr-command-option](screenshots/xr-command-option.jpg)
