@@ -17,10 +17,10 @@ Don't forget to setup the usual settings like "XR Mode" as "OpenXR".
 
 ## Switchable XR / Flat Modes on Desktop
 
-Use no argument, or "--xr=false", for standard flat mode.
+Use "--flat", "--flat=true", or "--xr=false" for standard flat mode.
 
 ![flat-command-option](screenshots/flat-command-option.jpg)
 
-Use "--xr", or "--xr=true", for XR mode.
+Use "--xr" or "--xr=true" for XR mode.
 
 ![xr-command-option](screenshots/xr-command-option.jpg)
