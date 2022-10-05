@@ -3,7 +3,7 @@ extends Node
 
 
 ##
-## XR / Flat Mode Game Launcher 
+## XR / Flat Mode Game Launcher
 ##
 ## @desc:
 ##     The script launches the game in either flat or xr modes based on
@@ -30,13 +30,13 @@ func _check_os_features() -> bool:
 		print("Mode is baked into the build...")
 		launch_xr()
 		return true
-	
+
 	# if forced, use Non-XR mode
 	if OS.has_feature("never-xr") or OS.has_feature("always-flat"):
 		print("Mode is baked into the build...")
 		launch_flat()
 		return true
-		
+
 	return false
 
 
@@ -51,7 +51,7 @@ func _check_args() -> bool:
 		else:
 			# Options without an argument
 			arguments[argument.lstrip("--")] = "true"
-	
+
 	# if explicitly chose XR mode
 	if arguments.get("xr") == "true" or arguments.get("flat") == "false":
 		print("Using command-line arguments to determine mode...")
@@ -63,7 +63,7 @@ func _check_args() -> bool:
 		print("Using command-line arguments to determine mode...")
 		launch_flat()
 		return true
-	
+
 	return false
 
 
