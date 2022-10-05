@@ -219,10 +219,10 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://addons/godot-xr-tools/objects/wind_area.gd"
 }, {
-"base": "Node",
+"base": "Reference",
 "class": "XrOrFlatModeLauncher",
 "language": "GDScript",
-"path": "res://Launcher/xr_or_flat_mode_launcher.gd"
+"path": "res://launcher/xr_or_flat_mode_launcher.gd"
 } ]
 _global_script_class_icons={
 "ARVRHelpers": "",
@@ -273,7 +273,7 @@ _global_script_class_icons={
 [application]
 
 config/name="Game With Both Flat & XR"
-run/main_scene="res://Launcher/xr_or_flat_mode_launcher.tscn"
+run/main_scene="res://launcher/xr_or_flat_mode_launcher.tscn"
 config/icon="res://icon.png"
 
 [gdnative]

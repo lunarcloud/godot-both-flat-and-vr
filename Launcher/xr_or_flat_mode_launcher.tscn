@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://Launcher/xr_or_flat_mode_launcher.gd" type="Script" id=1]
+[ext_resource path="res://launcher/xr_or_flat_mode_launcher.gd" type="Script" id=1]
 
 [sub_resource type="Theme" id=1]
 
