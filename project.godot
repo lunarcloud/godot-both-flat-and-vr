@@ -219,7 +219,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://addons/godot-xr-tools/objects/wind_area.gd"
 }, {
-"base": "Reference",
+"base": "Node",
 "class": "XrOrFlatModeLauncher",
 "language": "GDScript",
 "path": "res://launcher/xr_or_flat_mode_launcher.gd"

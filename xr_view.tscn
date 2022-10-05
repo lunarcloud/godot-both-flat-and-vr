@@ -28,6 +28,6 @@ jump_button_id = 7
 
 [node name="Common" parent="." instance=ExtResource( 4 )]
 
-[connection signal="session_ending" from="FPController" to="." method="_on_FPController_session_ending"]
+[connection signal="session_exiting" from="FPController" to="." method="_on_xr_session_exiting"]
 
 [editable path="FPController"]
