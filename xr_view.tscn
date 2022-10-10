@@ -12,7 +12,7 @@
 script = ExtResource( 7 )
 
 [node name="FPController" parent="." instance=ExtResource( 3 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0276984, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0276984, 4 )
 
 [node name="ARVRCamera" parent="FPController" index="1"]
 far = 1000.0
@@ -23,10 +23,12 @@ far = 1000.0
 jump_button_id = 7
 
 [node name="PlayerBody" parent="FPController" instance=ExtResource( 6 )]
+gravity = 0.0
 
 [node name="MovementPhysicalJump" parent="FPController" instance=ExtResource( 5 )]
 
 [node name="Common" parent="." instance=ExtResource( 4 )]
+transform = Transform( 0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0 )
 
 [connection signal="session_exiting" from="FPController" to="." method="_on_xr_session_exiting"]
 
