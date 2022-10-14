@@ -65,15 +65,22 @@ func _get_xr_origin() -> ARVROrigin:
 	return _xr_origin
 
 
-func flat_camera_look_at(target: Vector3):
+func flat_camera_rotate_to(target: Vector3):
 	if XrMode.CurrentMode == XrMode.XR:
 		return
 	_get_camera().look_at(target, Vector3.UP)
 
 
+func flat_camera_slide_to(target: Vector3, offset: Vector3):
+	_get_camera().global_transform.origin = target + offset
+	_get_camera().look_at(target, Vector3.UP)
+
+
+# TODO: Maybe we *can* use the ARVRCamera
 func rotated_to_camera_y(target: Vector3) -> Vector3:
 	var reference_y = _get_xr_origin().rotation.y \
 					 if XrMode.CurrentMode == XrMode.XR else \
 					 _get_camera().rotation.y
 	return target.rotated(Vector3.UP, reference_y)
+
 

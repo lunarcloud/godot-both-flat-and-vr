@@ -20,7 +20,7 @@ albedo_color = Color( 0.458824, 0.65098, 0.0627451, 1 )
 albedo_texture = SubResource( 3 )
 
 [sub_resource type="BoxShape" id=5]
-extents = Vector3( 30.2637, 0.001, 30.2203 )
+extents = Vector3( 30, 1, 30 )
 
 [sub_resource type="CapsuleMesh" id=6]
 
@@ -42,7 +42,7 @@ skeleton = NodePath("../..")
 material/0 = SubResource( 4 )
 
 [node name="CollisionShape" type="CollisionShape" parent="Ground"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.01, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0 )
 shape = SubResource( 5 )
 
 [node name="Character" type="KinematicBody" parent="."]
