@@ -17,19 +17,20 @@ enum Mode {
 }
 
 # Shorthands to simplify code
-export var Flat := Mode.Flat
-export var XR := Mode.XR
+var Flat = Mode.Flat
+var XR = Mode.XR
 
-export var CurrentMode := Mode.Flat
+export var CurrentMode := Mode.Flat setget _on_mode_set
 
 var _camera : Camera
 var _xr_origin : ARVROrigin
 var XrCharacterInput := Vector2.ZERO
 
-
-func _ready():
-	# warning-ignore:return_value_discarded
-	ARVRServer.connect("openxr_session_exiting", self, "_on_xr_session_exiting")
+func _on_mode_set(value):
+	if value == XR:
+		# warning-ignore:return_value_discarded
+		ARVRServer.connect("openxr_session_exiting", self, "_on_xr_session_exiting")
+	CurrentMode = value
 
 # Close the App when the session ends
 func _on_xr_session_exiting():
