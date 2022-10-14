@@ -16,7 +16,7 @@ func _physics_process(_delta):
 	var movement := Vector3(input.x, 0, input.y)
 	movement = XrMode.rotated_to_camera_y(movement).normalized() * speed * _speed_scale
 
-	# This is extremely important, as the 60 Hz normally seen flat,
+	# This is important, as the 60 Hz normally seen flat,
 	# won't match the typical 72, 90, or even 120 Hz of VR
 	movement *= _delta
 
