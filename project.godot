@@ -14,6 +14,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://addons/godot-xr-tools/misc/arvr_helpers.gd"
 }, {
+"base": "Node",
+"class": "XRModeCharacterInput",
+"language": "GDScript",
+"path": "res://xr_character_input.gd"
+}, {
 "base": "Spatial",
 "class": "XRToolsClimbable",
 "language": "GDScript",
@@ -226,6 +231,7 @@ _global_script_classes=[ {
 } ]
 _global_script_class_icons={
 "ARVRHelpers": "",
+"XRModeCharacterInput": "res://addons/godot-xr-tools/editor/icons/function.svg",
 "XRToolsClimbable": "res://addons/godot-xr-tools/editor/icons/hand.svg",
 "XRToolsFallDamage": "",
 "XRToolsFunctionPickup": "res://addons/godot-xr-tools/editor/icons/function.svg",
@@ -275,6 +281,10 @@ _global_script_class_icons={
 config/name="Game With Both Flat & XR"
 run/main_scene="res://launcher/xr_or_flat_mode_launcher.tscn"
 config/icon="res://icon.png"
+
+[autoload]
+
+XrMode="*res://xr_mode_singleton.gd"
 
 [gdnative]
 
