@@ -1,0 +1,35 @@
+[gd_scene format=2]
+
+[node name="HUD" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="Panel" type="Panel" parent="."]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = 21.0
+margin_top = -83.0
+margin_right = 117.0
+margin_bottom = -24.0
+
+[node name="Label" type="Label" parent="Panel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+text = "Example 
+HUD Element"
+align = 1
+valign = 1
+autowrap = true
+
+[node name="Label" type="Label" parent="."]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -127.0
+margin_top = 14.0
+margin_right = -31.0
+margin_bottom = 59.0
+text = "Example 
+HUD Element"
+align = 1
+valign = 1
+autowrap = true

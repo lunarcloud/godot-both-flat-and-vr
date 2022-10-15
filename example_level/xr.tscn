@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://addons/godot-openxr/scenes/first_person_controller_vr.gd" type="Script" id=1]
 [ext_resource path="res://addons/godot-xr-tools/assets/right_hand.tscn" type="PackedScene" id=2]
@@ -8,10 +8,21 @@
 [ext_resource path="res://addons/godot-xr-tools/functions/movement_turn.tscn" type="PackedScene" id=6]
 [ext_resource path="res://example_level/common.tscn" type="PackedScene" id=7]
 [ext_resource path="res://addons/godot-openxr/config/OpenXRConfig.gdns" type="Script" id=8]
+[ext_resource path="res://hud/xr_floating_hud.tscn" type="PackedScene" id=9]
+[ext_resource path="res://hud/xr_hand_hud.tscn" type="PackedScene" id=10]
+
+[sub_resource type="NoiseTexture" id=2]
+
+[sub_resource type="SpatialMaterial" id=3]
+albedo_color = Color( 0.878431, 0.619608, 0.619608, 1 )
+metallic = 1.0
+metallic_texture = SubResource( 2 )
+
+[sub_resource type="CubeMesh" id=1]
+material = SubResource( 3 )
+size = Vector3( 0.025, 0.05, 0.075 )
 
 [node name="VrView" type="Spatial"]
-
-[node name="Common" parent="." instance=ExtResource( 7 )]
 
 [node name="FPController" type="ARVROrigin" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 30.7221 )
@@ -50,7 +61,17 @@ smooth_rotation = true
 [node name="RightHand" parent="FPController/RightHandController" instance=ExtResource( 2 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.2 )
 
+[node name="Plate" type="MeshInstance" parent="FPController/RightHandController/RightHand"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.02, 0, -0.0266304 )
+mesh = SubResource( 1 )
+
+[node name="XrHandHud" parent="FPController/RightHandController/RightHand" instance=ExtResource( 10 )]
+
 [node name="PlayerBody" parent="FPController" instance=ExtResource( 5 )]
 gravity = 0.0
 push_rigid_bodies = false
 collision_mask = 0
+
+[node name="XrFloatingHud" parent="FPController" instance=ExtResource( 9 )]
+
+[node name="Common" parent="." instance=ExtResource( 7 )]
