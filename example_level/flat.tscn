@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=2]
 
-[ext_resource path="res://common_scene.tscn" type="PackedScene" id=1]
+[ext_resource path="res://example_level/common.tscn" type="PackedScene" id=1]
 
 [node name="FlatView" type="Spatial"]
 

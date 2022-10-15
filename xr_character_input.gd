@@ -65,7 +65,7 @@ func _process(_delta):
 		up_down = 0
 
 	var input := Vector2(left_right, up_down)
-	XrMode.XrCharacterInput = input
+	XrOrFlatMode.XrCharacterInput = input
 
 
 # This method verifies the movement provider has a valid configuration.

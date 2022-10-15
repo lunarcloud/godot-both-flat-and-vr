@@ -81,8 +81,8 @@ func _autodetect() -> void:
 # Launch the XR scene
 func launch_xr() -> void:
 	print("XR Mode Active")
-	XrMode.CurrentMode = XrMode.XR
-	if get_tree().change_scene("res://xr_view.tscn") != OK:
+	XrOrFlatMode.CurrentMode = XrOrFlatMode.XR
+	if get_tree().change_scene("res://example_level/xr.tscn") != OK:
 		print("Failed to load initial scene, quitting...")
 		get_tree().notification(NOTIFICATION_WM_QUIT_REQUEST)
 
@@ -90,8 +90,8 @@ func launch_xr() -> void:
 # Launch the Flat Scene
 func launch_flat() -> void:
 	print("Standard Non-XR Mode Active")
-	XrMode.CurrentMode = XrMode.Flat
-	if get_tree().change_scene("res://flat_view.tscn") != OK:
+	XrOrFlatMode.CurrentMode = XrOrFlatMode.Flat
+	if get_tree().change_scene("res://example_level/flat.tscn") != OK:
 		print("Failed to load initial scene, quitting...")
 		get_tree().notification(NOTIFICATION_WM_QUIT_REQUEST)
 

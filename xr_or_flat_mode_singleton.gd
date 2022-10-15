@@ -7,7 +7,7 @@ extends Node
 ##
 ## @desc:
 ##     The script provides a means for the "What mode are we in" question
-##     to be asked from anywhere. Expected to use a Node name of "XrMode".
+##     to be asked from anywhere. Expected to use a Node name of "XrOrFlatMode".
 ##
 
 
@@ -39,7 +39,7 @@ func _on_xr_session_exiting():
 
 
 func get_character_input() -> Vector2:
-	if XrMode.CurrentMode == XrMode.XR:
+	if XrOrFlatMode.CurrentMode == XrOrFlatMode.XR:
 		return XrCharacterInput
 
 	# Technically, this code works in XR, but produces undesired results
@@ -54,7 +54,7 @@ func _get_camera() -> Camera:
 	return _camera
 
 func _get_xr_origin() -> ARVROrigin:
-	if XrMode.CurrentMode == XrMode.Flat:
+	if XrOrFlatMode.CurrentMode == XrOrFlatMode.Flat:
 		return null
 
 	if !is_instance_valid(_xr_origin):
@@ -66,13 +66,13 @@ func _get_xr_origin() -> ARVROrigin:
 
 
 func flat_camera_rotate_to(target: Vector3):
-	if XrMode.CurrentMode == XrMode.XR:
+	if XrOrFlatMode.CurrentMode == XrOrFlatMode.XR:
 		return
 	_get_camera().look_at(target, Vector3.UP)
 
 
 func camera_slide_to(target: Vector3, flat_offset: Vector3, xr_offset: Vector3):
-	if XrMode.CurrentMode == XrMode.Flat:
+	if XrOrFlatMode.CurrentMode == XrOrFlatMode.Flat:
 		return flat_camera_slide_to(target, flat_offset)
 	# else XR
 	var new_position = target + xr_offset
@@ -88,7 +88,7 @@ func flat_camera_slide_to(target: Vector3, offset: Vector3):
 # TODO: Maybe we *can* use the ARVRCamera
 func rotated_to_camera_y(target: Vector3) -> Vector3:
 	var reference_y = _get_xr_origin().rotation.y \
-					 if XrMode.CurrentMode == XrMode.XR else \
+					 if XrOrFlatMode.CurrentMode == XrOrFlatMode.XR else \
 					 _get_camera().rotation.y
 	return target.rotated(Vector3.UP, reference_y)
 
