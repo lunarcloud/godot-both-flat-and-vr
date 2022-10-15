@@ -2,12 +2,13 @@ tool
 class_name XRToolsMovementJump
 extends XRToolsMovementProvider
 
+
 ##
 ## Movement Provider for Jumping
 ##
 ## @desc:
 ##     This script provides jumping mechanics for the player. This script works
-##     with the PlayerBody attached to the players ARVROrigin.
+##     with the XRToolsPlayerBody attached to the players ARVROrigin.
 ##
 ##     The player enables jumping by attaching an XRToolsMovementJump as a
 ##     child of the appropriate ARVRController, then configuring the jump button
@@ -34,10 +35,10 @@ enum Buttons {
 }
 
 ## Movement provider order
-export var order := 20
+export var order : int = 20
 
 ## Button to trigger jump
-export (Buttons) var jump_button_id = Buttons.VR_TRIGGER
+export (Buttons) var jump_button_id : int = Buttons.VR_TRIGGER
 
 # Node references
 onready var _controller: ARVRController = get_parent()
@@ -45,12 +46,13 @@ onready var _controller: ARVRController = get_parent()
 # Perform jump movement
 func physics_movement(_delta: float, player_body: XRToolsPlayerBody, _disabled: bool):
 	# Skip if the jump controller isn't active
-	if !_controller or !_controller.get_is_active():
+	if !_controller.get_is_active():
 		return
 
 	# Request jump if the button is pressed
 	if _controller.is_button_pressed(jump_button_id):
 		player_body.request_jump()
+
 
 # This method verifies the movement provider has a valid configuration.
 func _get_configuration_warning():
