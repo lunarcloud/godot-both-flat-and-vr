@@ -71,6 +71,15 @@ func flat_camera_rotate_to(target: Vector3):
 	_get_camera().look_at(target, Vector3.UP)
 
 
+func camera_slide_to(target: Vector3, flat_offset: Vector3, xr_offset: Vector3):
+	if XrMode.CurrentMode == XrMode.Flat:
+		return flat_camera_slide_to(target, flat_offset)
+	# else XR
+	var new_position = target + xr_offset
+	_get_xr_origin().global_transform.origin.x = new_position.x
+	_get_xr_origin().global_transform.origin.z = new_position.z
+
+
 func flat_camera_slide_to(target: Vector3, offset: Vector3):
 	_get_camera().global_transform.origin = target + offset
 	_get_camera().look_at(target, Vector3.UP)

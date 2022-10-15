@@ -32,6 +32,19 @@ export var up_down_deadzone := 0.3
 # Controller node
 onready var _controller : ARVRController = get_parent()
 
+func _ready():
+	# If I don't handle end/begin events, replacing the headset stops character control
+
+	# warning-ignore:return_value_discarded
+	ARVRServer.connect("openxr_session_ending", self, "_on_xr_session_ending")
+	# warning-ignore:return_value_discarded
+	ARVRServer.connect("openxr_session_begun", self, "_on_xr_session_begun")
+
+func _on_xr_session_ending():
+	set_process(false)
+
+func _on_xr_session_begun():
+	set_process(true)
 
 func _process(_delta):
 	if Engine.editor_hint:

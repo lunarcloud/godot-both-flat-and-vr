@@ -12,10 +12,10 @@
 [node name="VrView" type="Spatial"]
 
 [node name="Common" parent="." instance=ExtResource( 4 )]
-transform = Transform( 0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0 )
 
 [node name="FPController" type="ARVROrigin" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3.73243 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 30.7221 )
+world_scale = 10.0
 script = ExtResource( 8 )
 
 [node name="Configuration" type="Node" parent="FPController"]
@@ -48,6 +48,7 @@ script = ExtResource( 3 )
 smooth_rotation = true
 
 [node name="RightHand" parent="FPController/RightHandController" instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.2 )
 
 [node name="PlayerBody" parent="FPController" instance=ExtResource( 6 )]
 gravity = 0.0
