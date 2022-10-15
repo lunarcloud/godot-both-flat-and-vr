@@ -11,26 +11,37 @@ extends Node
 ##
 
 
+# The Two Modes supported
 enum Mode {
 	XR,
 	Flat
 }
 
-# Shorthands to simplify code
+# Shorthands "Mode.Flat" to simplify code
 var Flat = Mode.Flat
+
+# Shorthands "Mode.XR" to simplify code
 var XR = Mode.XR
 
-export var CurrentMode := Mode.Flat setget _on_mode_set
+# Current Mode (XR / Flat)
+var CurrentMode = Mode.Flat setget _on_mode_set
 
-var _camera : Camera
-var _xr_origin : ARVROrigin
+# Cache of character Input value from the XrCharacterInput script
 var XrCharacterInput := Vector2.ZERO
 
+# Cache of the active camera
+var _camera : Camera
+
+# Cache of the active XR Origin
+var _xr_origin : ARVROrigin
+
+# Setter for "CurrentMode", ensures XR Server event subscribing
 func _on_mode_set(value):
 	if value == XR:
 		# warning-ignore:return_value_discarded
 		ARVRServer.connect("openxr_session_exiting", self, "_on_xr_session_exiting")
 	CurrentMode = value
+
 
 # Close the App when the session ends
 func _on_xr_session_exiting():
@@ -38,21 +49,25 @@ func _on_xr_session_exiting():
 	get_tree().notification(NOTIFICATION_WM_QUIT_REQUEST)
 
 
+# Return input from the normal input or the XRCharacterInput script & variable
 func get_character_input() -> Vector2:
 	if XrOrFlatMode.CurrentMode == XrOrFlatMode.XR:
 		return XrCharacterInput
 
 	# Technically, this code works in XR, but produces undesired results
-	return Input.get_vector(	"character_left", 		"character_right",
-								"character_forward", 	"character_backward",
-								0.3)
+	return Input.get_vector("character_left", 	 "character_right",
+							"character_forward", "character_backward",
+							0.3)
 
 
+# Get the camera
 func _get_camera() -> Camera:
 	if !is_instance_valid(_camera):
 		_camera = get_viewport().get_camera()
 	return _camera
 
+
+# Get the XR Origin
 func _get_xr_origin() -> ARVROrigin:
 	if XrOrFlatMode.CurrentMode == XrOrFlatMode.Flat:
 		return null
@@ -65,12 +80,19 @@ func _get_xr_origin() -> ARVROrigin:
 	return _xr_origin
 
 
-func flat_camera_rotate_to(target: Vector3):
+# Rotate the Flat Camera or XR Origin to look at target
+func look_at(target: Vector3):
 	if XrOrFlatMode.CurrentMode == XrOrFlatMode.XR:
-		return
-	_get_camera().look_at(target, Vector3.UP)
+		_get_xr_origin().look_at(target, Vector3.UP)
+	else:
+		_get_camera().look_at(target, Vector3.UP)
+
+# Rotate Flat Camera (no XR) to look at target
+func flat_look_at(target: Vector3):
+	if XrOrFlatMode.CurrentMode == XrOrFlatMode.Flat: look_at(target)
 
 
+# Slide the Flat Camera or XR Origin to follow target with offset
 func camera_slide_to(target: Vector3, flat_offset: Vector3, xr_offset: Vector3):
 	if XrOrFlatMode.CurrentMode == XrOrFlatMode.Flat:
 		return flat_camera_slide_to(target, flat_offset)
@@ -80,13 +102,14 @@ func camera_slide_to(target: Vector3, flat_offset: Vector3, xr_offset: Vector3):
 	_get_xr_origin().global_transform.origin.z = new_position.z
 
 
+# Slide the Flat Camera (no XR) to follow target with offset
 func flat_camera_slide_to(target: Vector3, offset: Vector3):
 	_get_camera().global_transform.origin = target + offset
 	_get_camera().look_at(target, Vector3.UP)
 
 
-# TODO: Maybe we *can* use the ARVRCamera
-func rotated_to_camera_y(target: Vector3) -> Vector3:
+# Rotate the Flat Camera or XR Origin to follow target
+func rotated_toward(target: Vector3) -> Vector3:
 	var reference_y = _get_xr_origin().rotation.y \
 					 if XrOrFlatMode.CurrentMode == XrOrFlatMode.XR else \
 					 _get_camera().rotation.y

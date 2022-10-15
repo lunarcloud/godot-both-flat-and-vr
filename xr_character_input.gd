@@ -3,6 +3,16 @@ extends Node
 tool
 
 
+
+##
+## XR Character Input
+##
+## @desc:
+##     The script provides a means to capture the input from XR controller and
+##     passes it along to the "XrOrFlatMode" singleton for use with a character.
+##
+
+
 # use enum from XRTools if they centralize these
 enum Buttons {
 	VR_BUTTON_BY = 1,

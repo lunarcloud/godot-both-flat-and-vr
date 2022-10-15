@@ -14,7 +14,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://addons/godot-xr-tools/misc/arvr_helpers.gd"
 }, {
-"base": "Reference",
+"base": "Node",
 "class": "XRModeCharacterInput",
 "language": "GDScript",
 "path": "res://xr_character_input.gd"
@@ -231,7 +231,7 @@ _global_script_classes=[ {
 } ]
 _global_script_class_icons={
 "ARVRHelpers": "",
-"XRModeCharacterInput": "",
+"XRModeCharacterInput": "res://addons/godot-xr-tools/editor/icons/function.svg",
 "XRToolsClimbable": "res://addons/godot-xr-tools/editor/icons/hand.svg",
 "XRToolsFallDamage": "",
 "XRToolsFunctionPickup": "res://addons/godot-xr-tools/editor/icons/function.svg",
