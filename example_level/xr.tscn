@@ -25,7 +25,7 @@ size = Vector3( 0.025, 0.05, 0.075 )
 [node name="VrView" type="Spatial"]
 
 [node name="FPController" type="ARVROrigin" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 30.7221 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 31 )
 world_scale = 10.0
 script = ExtResource( 1 )
 
@@ -72,6 +72,7 @@ gravity = 0.0
 push_rigid_bodies = false
 collision_mask = 0
 
-[node name="XrFloatingHud" parent="FPController" instance=ExtResource( 9 )]
-
 [node name="Common" parent="." instance=ExtResource( 7 )]
+
+[node name="XrFloatingHud" parent="." instance=ExtResource( 9 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 31 )

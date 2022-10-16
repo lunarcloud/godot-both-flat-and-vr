@@ -1,9 +1,12 @@
-[gd_scene format=2]
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://hud/xr_floating_hud.gd" type="Script" id=1]
 
 [node name="XrFloatingHud" type="Spatial"]
+script = ExtResource( 1 )
 
 [node name="Label3D" type="Label3D" parent="."]
-transform = Transform( 0.906308, 0, -0.422618, 0, 1, 0, 0.422618, 0, 0.906308, 2.31916, 12, -10 )
+transform = Transform( 0.906308, 0, -0.422618, 0, 1, 0, 0.422618, 0, 0.906308, 2.319, 0, -10 )
 pixel_size = 0.025
 text = "Example Floating
 HUD Element"

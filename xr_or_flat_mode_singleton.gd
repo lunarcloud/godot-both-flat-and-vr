@@ -116,3 +116,5 @@ func rotated_toward(target: Vector3) -> Vector3:
 	return target.rotated(Vector3.UP, reference_y)
 
 
+func xr_player_height() -> float:
+	return _get_camera().translation.y
