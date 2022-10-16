@@ -1,0 +1,27 @@
+[gd_scene load_steps=5 format=2]
+
+[sub_resource type="NoiseTexture" id=6]
+seamless = true
+
+[sub_resource type="SpatialMaterial" id=7]
+albedo_color = Color( 0.352941, 0.290196, 0.321569, 1 )
+metallic_specular = 0.0
+roughness_texture = SubResource( 6 )
+
+[sub_resource type="CubeMesh" id=8]
+material = SubResource( 7 )
+size = Vector3( 20, 20, 20 )
+
+[sub_resource type="BoxShape" id=9]
+extents = Vector3( 10.3871, 10.7031, 10.0822 )
+
+[node name="CubeTower" type="StaticBody"]
+
+[node name="MeshInstance" type="MeshInstance" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10, 0 )
+mesh = SubResource( 8 )
+skeleton = NodePath("../../../Ground/MeshInstance")
+
+[node name="CollisionShape" type="CollisionShape" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10.322, 0 )
+shape = SubResource( 9 )

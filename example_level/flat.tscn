@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://example_level/common.tscn" type="PackedScene" id=1]
 [ext_resource path="res://hud/flat_hud.tscn" type="PackedScene" id=2]
+[ext_resource path="res://default_env.tres" type="Environment" id=3]
 
 [node name="FlatView" type="Spatial"]
 
@@ -9,5 +10,8 @@
 
 [node name="Camera" type="Camera" parent="."]
 transform = Transform( 1, 0, 0, 0, 0.663743, 0.74796, 0, -0.74796, 0.663743, 0, 9.29459, 11.0639 )
+environment = ExtResource( 3 )
+current = true
+far = 200.0
 
 [node name="Common" parent="." instance=ExtResource( 1 )]

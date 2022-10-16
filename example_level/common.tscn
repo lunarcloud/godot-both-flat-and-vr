@@ -1,31 +1,149 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://example_character/character.tscn" type="PackedScene" id=1]
+[ext_resource path="res://example_level/Lamp.tscn" type="PackedScene" id=2]
+[ext_resource path="res://example_level/CubeTower.tscn" type="PackedScene" id=3]
 
 [sub_resource type="PlaneMesh" id=1]
-size = Vector2( 60, 60 )
+size = Vector2( 200, 200 )
 
 [sub_resource type="OpenSimplexNoise" id=2]
-period = 32.0
+seed = 4
+period = 0.1
+persistence = 1.0
+lacunarity = 4.0
 
 [sub_resource type="NoiseTexture" id=3]
-width = 1024
-height = 1024
-seamless = true
-as_normalmap = true
 noise = SubResource( 2 )
 
 [sub_resource type="SpatialMaterial" id=4]
-albedo_color = Color( 0.458824, 0.65098, 0.0627451, 1 )
+albedo_color = Color( 0.152941, 0.152941, 0.152941, 1 )
 albedo_texture = SubResource( 3 )
 
 [sub_resource type="BoxShape" id=5]
-extents = Vector3( 30, 1, 30 )
+extents = Vector3( 150, 1, 150 )
 
 [node name="Common" type="Spatial"]
 
-[node name="Ground" type="RigidBody" parent="."]
-mode = 1
+[node name="Lamps" type="Spatial" parent="."]
+
+[node name="Lamp1" parent="Lamps" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -10.9968, 0, -65.323 )
+
+[node name="Lamp13" parent="Lamps" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -10.9968, 0, -97.1208 )
+
+[node name="Lamp3" parent="Lamps" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -10.9968, 0, -23.47 )
+
+[node name="Lamp5" parent="Lamps" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -10.9968, 0, 6.5067 )
+
+[node name="Lamp7" parent="Lamps" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -10.9968, 0, 39.2563 )
+
+[node name="Lamp9" parent="Lamps" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -10.9968, 0, 74.7423 )
+
+[node name="Lamp11" parent="Lamps" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -10.9968, 0, 97.9587 )
+
+[node name="Lamp15" parent="Lamps" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -81.1299, 0, -65.323 )
+
+[node name="Lamp16" parent="Lamps" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -81.1299, 0, -97.1208 )
+
+[node name="Lamp17" parent="Lamps" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -81.1299, 0, -23.47 )
+
+[node name="Lamp18" parent="Lamps" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -81.1299, 0, 6.5067 )
+
+[node name="Lamp19" parent="Lamps" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -81.1299, 0, 39.2563 )
+
+[node name="Lamp20" parent="Lamps" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -81.1299, 0, 74.7423 )
+
+[node name="Lamp21" parent="Lamps" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -81.1299, 0, 97.9587 )
+
+[node name="Lamp22" parent="Lamps" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 81.8766, 0, -65.323 )
+
+[node name="Lamp23" parent="Lamps" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 81.8766, 0, -97.1208 )
+
+[node name="Lamp24" parent="Lamps" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 81.8766, 0, -23.47 )
+
+[node name="Lamp25" parent="Lamps" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 81.8766, 0, 6.5067 )
+
+[node name="Lamp26" parent="Lamps" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 81.8766, 0, 39.2563 )
+
+[node name="Lamp27" parent="Lamps" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 81.8766, 0, 74.7423 )
+
+[node name="Lamp28" parent="Lamps" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 81.8766, 0, 97.9587 )
+
+[node name="Lamp2" parent="Lamps" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 10.5994, 0, -65.323 )
+
+[node name="Lamp14" parent="Lamps" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 10.5994, 0, -97.1208 )
+
+[node name="Lamp4" parent="Lamps" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 10.5994, 0, -23.47 )
+
+[node name="Lamp6" parent="Lamps" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 10.5994, 0, 6.5067 )
+
+[node name="Lamp8" parent="Lamps" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 10.5994, 0, 39.2563 )
+
+[node name="Lamp10" parent="Lamps" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 10.5994, 0, 74.7423 )
+
+[node name="Lamp12" parent="Lamps" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 10.5994, 0, 97.9587 )
+
+[node name="Towers" type="Spatial" parent="."]
+
+[node name="CubeTower1" parent="Towers" instance=ExtResource( 3 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 37.6971, 3.8147e-06, -76.1212 )
+
+[node name="CubeTower2" parent="Towers" instance=ExtResource( 3 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 37.6971, 3.8147e-06, -36.0955 )
+
+[node name="CubeTower3" parent="Towers" instance=ExtResource( 3 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 37.6971, 3.8147e-06, 0.427345 )
+
+[node name="CubeTower4" parent="Towers" instance=ExtResource( 3 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 37.6971, 3.8147e-06, 35.0537 )
+
+[node name="CubeTower5" parent="Towers" instance=ExtResource( 3 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 37.6971, 3.8147e-06, 77.0359 )
+
+[node name="CubeTower6" parent="Towers" instance=ExtResource( 3 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -37.0226, 3.8147e-06, -76.1212 )
+
+[node name="CubeTower7" parent="Towers" instance=ExtResource( 3 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -37.0226, 3.8147e-06, -36.0955 )
+
+[node name="CubeTower8" parent="Towers" instance=ExtResource( 3 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -37.0226, 3.8147e-06, 0.427345 )
+
+[node name="CubeTower9" parent="Towers" instance=ExtResource( 3 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -37.0226, 3.8147e-06, 35.0537 )
+
+[node name="CubeTower10" parent="Towers" instance=ExtResource( 3 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -37.0226, 3.8147e-06, 77.0359 )
+
+[node name="Ground" type="StaticBody" parent="."]
 
 [node name="MeshInstance" type="MeshInstance" parent="Ground"]
 mesh = SubResource( 1 )
