@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://addons/godot-openxr/scenes/first_person_controller_vr.gd" type="Script" id=1]
 [ext_resource path="res://addons/godot-xr-tools/assets/right_hand.tscn" type="PackedScene" id=2]
@@ -10,6 +10,7 @@
 [ext_resource path="res://addons/godot-openxr/config/OpenXRConfig.gdns" type="Script" id=8]
 [ext_resource path="res://hud/xr_floating_hud.tscn" type="PackedScene" id=9]
 [ext_resource path="res://hud/xr_hand_hud.tscn" type="PackedScene" id=10]
+[ext_resource path="res://xr_cam_corrected.gd" type="Script" id=11]
 
 [sub_resource type="NoiseTexture" id=2]
 
@@ -40,6 +41,7 @@ cull_mask = 524287
 fov = 65.0
 near = 0.1
 far = 1000.0
+script = ExtResource( 11 )
 
 [node name="LeftHandController" type="ARVRController" parent="FPController"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 1, -0.5 )

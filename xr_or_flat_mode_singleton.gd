@@ -35,6 +35,9 @@ var _camera : Camera
 # Cache of the active XR Origin
 var _xr_origin : ARVROrigin
 
+# This is a workaround for sometimes the XR stage not being aligned with the initial camera rotation
+var XrRotationYCorrection : float = 0
+
 # Setter for "CurrentMode", ensures XR Server event subscribing
 func _on_mode_set(value):
 	if value == XR:
@@ -51,7 +54,7 @@ func _on_xr_session_exiting():
 
 # Return input from the normal input or the XRCharacterInput script & variable
 func get_character_input() -> Vector2:
-	if XrOrFlatMode.CurrentMode == XrOrFlatMode.XR:
+	if CurrentMode == XR:
 		return XrCharacterInput
 
 	# Technically, this code works in XR, but produces undesired results
@@ -69,7 +72,7 @@ func _get_camera() -> Camera:
 
 # Get the XR Origin
 func _get_xr_origin() -> ARVROrigin:
-	if XrOrFlatMode.CurrentMode == XrOrFlatMode.Flat:
+	if CurrentMode == Flat:
 		return null
 
 	if !is_instance_valid(_xr_origin):
@@ -80,21 +83,15 @@ func _get_xr_origin() -> ARVROrigin:
 	return _xr_origin
 
 
-# Rotate the Flat Camera or XR Origin to look at target
-func look_at(target: Vector3):
-	if XrOrFlatMode.CurrentMode == XrOrFlatMode.XR:
-		_get_xr_origin().look_at(target, Vector3.UP)
-	else:
-		_get_camera().look_at(target, Vector3.UP)
-
 # Rotate Flat Camera (no XR) to look at target
 func flat_look_at(target: Vector3):
-	if XrOrFlatMode.CurrentMode == XrOrFlatMode.Flat: look_at(target)
+	if CurrentMode == Flat:
+		_get_camera().look_at(target, Vector3.UP)
 
 
 # Slide the Flat Camera or XR Origin to follow target with offset
 func camera_slide_to(target: Vector3, flat_offset: Vector3, xr_offset: Vector3):
-	if XrOrFlatMode.CurrentMode == XrOrFlatMode.Flat:
+	if CurrentMode == Flat:
 		return flat_camera_slide_to(target, flat_offset)
 	# else XR
 	var new_position = target + xr_offset
@@ -110,9 +107,11 @@ func flat_camera_slide_to(target: Vector3, offset: Vector3):
 
 # Rotate the Flat Camera or XR Origin to follow target
 func rotated_toward(target: Vector3) -> Vector3:
-	var reference_y = _get_xr_origin().rotation.y \
-					 if XrOrFlatMode.CurrentMode == XrOrFlatMode.XR else \
-					 _get_camera().rotation.y
+	var reference_y : float = 0
+	if CurrentMode == XR:
+		reference_y = _get_xr_origin().global_rotation.y + XrRotationYCorrection
+	else:
+		reference_y = _get_camera().global_rotation.y
 	return target.rotated(Vector3.UP, reference_y)
 
 
