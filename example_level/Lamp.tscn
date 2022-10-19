@@ -10,18 +10,19 @@ metallic_texture = SubResource( 10 )
 
 [sub_resource type="CylinderMesh" id=12]
 material = SubResource( 11 )
-top_radius = 0.75
-height = 20.0
+top_radius = 0.075
+bottom_radius = 0.15
+height = 3.0
 
 [sub_resource type="CylinderShape" id=13]
-height = 20.0
+height = 3.5
+radius = 0.15
 
 [sub_resource type="SphereMesh" id=14]
-radius = 2.0
-height = 4.0
+radius = 0.3
+height = 0.6
 
 [sub_resource type="SpatialMaterial" id=15]
-flags_transparent = true
 flags_do_not_receive_shadows = true
 albedo_color = Color( 1, 0.945098, 0.796078, 1 )
 metallic = 1.0
@@ -35,15 +36,15 @@ emission_on_uv2 = false
 [node name="Lamp" type="StaticBody"]
 
 [node name="MeshInstance2" type="MeshInstance" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0 )
 mesh = SubResource( 12 )
 skeleton = NodePath("../../../Ground/MeshInstance")
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.75, 0 )
 shape = SubResource( 13 )
 
 [node name="MeshInstance" type="MeshInstance" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 20.3915, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.21079, 0 )
 mesh = SubResource( 14 )
 material/0 = SubResource( 15 )

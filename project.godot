@@ -293,6 +293,12 @@ config/icon="res://icon.png"
 
 XrOrFlatMode="*res://xr_or_flat_mode_singleton.gd"
 
+[display]
+
+window/size/width=1280
+window/size/height=800
+window/dpi/allow_hidpi=true
+
 [gdnative]
 
 singletons=[ "res://addons/godot-openxr/config/godot_openxr.gdnlib" ]
@@ -347,4 +353,5 @@ common/enable_pause_aware_picking=true
 
 [rendering]
 
+quality/filters/msaa=5
 environment/default_environment="res://default_env.tres"

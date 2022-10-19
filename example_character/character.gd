@@ -17,7 +17,7 @@ enum Follow {
 	Neither
 }
 
-export (float, 10.0, 60.0) var speed : float = 20.0
+export (float, 10.0, 60.0) var speed : float = 8.0
 
 export (Follow) var FollowStyle := Follow.Both
 
@@ -30,9 +30,9 @@ func _physics_process(_delta):
 
 	match FollowStyle:
 		Follow.Both:
-			XrOrFlatMode.camera_slide_to(translation, Vector3(0, 10, 15), Vector3(0, 0, 30))
+			XrOrFlatMode.camera_slide_to(translation, Vector3(0, 4.5, 5), Vector3(0, 0, 7.5))
 		Follow.Flat:
-			XrOrFlatMode.flat_camera_slide_to(translation, Vector3(0, 10, 15))
+			XrOrFlatMode.flat_camera_slide_to(translation, Vector3(0, 4.5, 5))
 
 
 func _process(_delta):
