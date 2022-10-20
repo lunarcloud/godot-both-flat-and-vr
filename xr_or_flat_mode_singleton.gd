@@ -26,7 +26,7 @@ var XR = Mode.XR
 # Current Mode (XR / Flat)
 var CurrentMode = Mode.Flat setget _on_mode_set
 
-# Cache of character Input value from the XrCharacterInput script
+# Cache of character input value from the XrCharacterInput script
 var XrCharacterInput := Vector2.ZERO
 
 # Cache of the active camera
@@ -34,6 +34,9 @@ var _camera : Camera
 
 # Cache of the active XR Origin
 var _xr_origin : ARVROrigin
+
+# Cache of the XrCharacterInput's Controller, for vibration
+var _get_character_input_controller : ARVRController
 
 # This is a workaround for sometimes the XR stage not being aligned with the initial camera rotation
 var XrRotationYCorrection : float = 0
@@ -117,3 +120,30 @@ func rotated_toward(target: Vector3) -> Vector3:
 
 func xr_player_height() -> float:
 	return _get_camera().translation.y
+
+
+func vibrate(weak_magnitude: float, strong_magnitude: float, duration: float) -> void:
+	if CurrentMode == Flat:
+		Input.start_joy_vibration(0, weak_magnitude, strong_magnitude, duration)
+	else: #XR
+		var controller : ARVRController = _get_character_input_controller()
+		var weakAmount := clamp(weak_magnitude/2, 0.0, 0.5)
+		var strongAmount := clamp(strong_magnitude/2, 0.0, 0.5)
+		if strongAmount > 0.0:
+			strongAmount += 0.5
+		controller.rumble = weakAmount + strongAmount
+		yield(get_tree().create_timer(duration), "timeout")
+		controller.rumble = 0.0
+
+func _get_character_input_controller() -> ARVRController:
+	if is_instance_valid(_get_character_input_controller):
+		return _get_character_input_controller
+
+	# See if the right controller has the XRModeCharacterInput, else assume left
+	var right: ARVRController = ARVRHelpers.get_right_controller(_get_xr_origin())
+	var xr_character_input = right.get_node_or_null("XRModeCharacterInput") as XRModeCharacterInput
+	if xr_character_input:
+		_get_character_input_controller = right
+	else:
+		_get_character_input_controller = ARVRHelpers.get_left_controller(_get_xr_origin())
+	return _get_character_input_controller

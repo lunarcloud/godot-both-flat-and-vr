@@ -50,11 +50,14 @@ func _ready():
 	# warning-ignore:return_value_discarded
 	ARVRServer.connect("openxr_session_begun", self, "_on_xr_session_begun")
 
+
 func _on_xr_session_ending():
 	set_process(false)
 
+
 func _on_xr_session_begun():
 	set_process(true)
+
 
 func _process(_delta):
 	if Engine.editor_hint:
