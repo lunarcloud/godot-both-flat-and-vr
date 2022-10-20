@@ -25,11 +25,15 @@ export (float, 0.01, 1.0) var bump_vibrate = 0.75
 
 var _velocity := Vector3.ZERO
 
-var _was_on_wall := false
+# remember if we were last frame touching a wall - true by default to prevent an initial rumble
+var _was_on_wall := true
+
+onready var _anim = $AnimationPlayer
 
 func _physics_process(_delta):
-	# warning-ignore:return_value_discarded
-	move_and_slide_with_snap(_velocity, Vector3.DOWN)
+	if _velocity != Vector3.ZERO:
+		# warning-ignore:return_value_discarded
+		move_and_slide_with_snap(_velocity, Vector3.DOWN)
 
 	match FollowStyle:
 		Follow.Both:
@@ -46,9 +50,22 @@ func _process(_delta):
 	var direction := Vector3(input.x, 0, input.y).normalized()
 	direction = XrOrFlatMode.rotated_toward(direction)
 	_velocity = speed * direction
+	_process_animation()
+
+
+func _process_animation():
+	if _velocity == Vector3.ZERO and _anim.is_playing():
+		_anim.play("RESET")
+		return
+	if _velocity != Vector3.ZERO and not _anim.current_animation == "Walking":
+		_anim.play("Walking")
 
 
 func _process_vibration():
+	if _velocity == Vector3.ZERO:
+		return
 	if is_on_wall() and not _was_on_wall:
 		XrOrFlatMode.vibrate(bump_vibrate, 0.0, 0.1)
 	_was_on_wall = is_on_wall()
+
+
