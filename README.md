@@ -1,4 +1,6 @@
-# ![icon](icon.png) Godot Example that Supports Both Flat & XR
+# Godot Example that Supports Both Flat & XR
+![icon](icon.png)
+
 Get you a project template that can do both (XR and 'normal' 3D game).
 
 This project example is using Godot 3.5.1
