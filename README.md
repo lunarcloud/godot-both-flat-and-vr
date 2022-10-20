@@ -1,4 +1,4 @@
-# Godot Example that Supports Both Flat & XR
+# Godot Project that Supports Both Flat & XR
 ![icon](icon.png)
 
 Get you a project template that can do both (XR and 'normal' 3D game).
