@@ -5,13 +5,18 @@ Get you a project template that can do both (XR and 'normal' 3D game).
 
 This project example is using Godot 3.5.1
 
-## Autoload Singleton
+## Project Settings
+MSAA "AndroidVR 2x" is recommended; it applies a 2x MSAA for both desktop and Quest platforms.
+
+Inputs expected by the project's code are: "character_forward", "character_backward", "character_left", "character_right".
+
+### Autoload Singleton
 
 There is one singleton to define under the "AutoLoad" section. the script "xr_or_flat_mode_singleton.gd" must be named "XrOrFlatMode". This singleton is the helper that allows any script to preform functions that differ between modes and to query the current mode.
 
 ![autoload-singleton](screenshots/autoload-singleton.jpg)
 
-## Enforce XR Mode For Quest
+### Export For Meta Quest
 
 Simply add the "always-xr" feature to the android export.
 
