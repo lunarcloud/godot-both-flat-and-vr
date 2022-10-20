@@ -1,17 +1,13 @@
+tool
 class_name XRModeCharacterInput, "res://addons/godot-xr-tools/editor/icons/function.svg"
 extends Node
-tool
-
-
 
 ##
 ## XR Character Input
 ##
-## @desc:
-##     The script provides a means to capture the input from XR controller and
-##     passes it along to the "XrOrFlatMode" singleton for use with a character.
+## The script provides a means to capture the input from XR controller and
+## passes it along to the "XrOrFlatMode" singleton for use with a character.
 ##
-
 
 # use enum from XRTools if they centralize these
 enum Buttons {
@@ -33,14 +29,15 @@ enum Buttons {
 }
 
 ## Button to trigger jump
-export (Buttons) var jump_button_id = Buttons.VR_BUTTON_AX
+export(Buttons) var jump_button_id = Buttons.VR_BUTTON_AX
 
 export var left_right_deadzone := 0.3
 
 export var up_down_deadzone := 0.3
 
 # Controller node
-onready var _controller : ARVRController = get_parent()
+onready var _controller: ARVRController = get_parent()
+
 
 func _ready():
 	# If I don't handle end/begin events, replacing the headset stops character control
@@ -68,17 +65,17 @@ func _process(_delta):
 		return
 
 	# Read the left/right joystick axis
-	var left_right : float = _controller.get_joystick_axis(0)
+	var left_right: float = _controller.get_joystick_axis(0)
 	if abs(left_right) <= left_right_deadzone:
 		left_right = 0
 
 	# Read the up/down joystick axis
-	var up_down : float = _controller.get_joystick_axis(1) * -1 # flip vertical
+	var up_down: float = _controller.get_joystick_axis(1) * -1  # flip vertical
 	if abs(up_down) <= up_down_deadzone:
 		up_down = 0
 
 	var input := Vector2(left_right, up_down)
-	XrOrFlatMode.XrCharacterInput = input
+	XrOrFlatMode.xr_character_input = input
 
 
 # This method verifies the movement provider has a valid configuration.

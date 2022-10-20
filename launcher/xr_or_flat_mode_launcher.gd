@@ -1,21 +1,21 @@
 class_name XrOrFlatModeLauncher
 extends Node
 
-
 ##
 ## XR / Flat Mode Game Launcher
 ##
-## @desc:
-##     The script launches the game in either flat or xr modes based on
-##     either features added to the export options, command-line arguments,
-##     or autodetected based on whether the XR interface can be started,
-##     i.e. if a VR headset is connected or not.
+## The script launches the game in either flat or xr modes based on
+## either features added to the export options, command-line arguments,
+## or autodetected based on whether the XR interface can be started,
+## i.e. if a VR headset is connected or not.
 ##
 
 
 func _ready():
-	if _check_os_features(): return
-	if _check_args(): return
+	if _check_os_features():
+		return
+	if _check_args():
+		return
 	_autodetect()
 
 
@@ -71,8 +71,8 @@ func _check_args() -> bool:
 func _autodetect() -> void:
 	# if we didn't specify, autodetect
 	print("Autodetecting XR or non-XR mode on whether a headset is connected...")
-	var xrInterface := ARVRServer.find_interface("OpenXR")
-	if xrInterface and xrInterface.initialize():
+	var xr_interface := ARVRServer.find_interface("OpenXR")
+	if xr_interface and xr_interface.initialize():
 		launch_xr()
 	else:
 		launch_flat()
@@ -81,7 +81,7 @@ func _autodetect() -> void:
 # Launch the XR scene
 func launch_xr() -> void:
 	print("XR Mode Active")
-	XrOrFlatMode.CurrentMode = XrOrFlatMode.XR
+	XrOrFlatMode.current_mode = XrOrFlatMode.Mode.XR
 	if get_tree().change_scene("res://example_level/xr.tscn") != OK:
 		print("Failed to load initial scene, quitting...")
 		get_tree().notification(NOTIFICATION_WM_QUIT_REQUEST)
@@ -90,9 +90,7 @@ func launch_xr() -> void:
 # Launch the Flat Scene
 func launch_flat() -> void:
 	print("Standard Non-XR Mode Active")
-	XrOrFlatMode.CurrentMode = XrOrFlatMode.Flat
+	XrOrFlatMode.current_mode = XrOrFlatMode.Mode.FLAT
 	if get_tree().change_scene("res://example_level/flat.tscn") != OK:
 		print("Failed to load initial scene, quitting...")
 		get_tree().notification(NOTIFICATION_WM_QUIT_REQUEST)
-
-
