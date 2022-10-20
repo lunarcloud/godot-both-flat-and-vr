@@ -11,10 +11,6 @@ There is one singleton to define under the "AutoLoad" section. the script "xr_or
 
 ![autoload-singleton](screenshots/autoload-singleton.jpg)
 
-## Providing Launch Options in Launcher App
-
-This is intended to be used with itch.io's ["Manifest actions"](https://itch.io/docs/itch/integrating/manifest-actions.html) feature, where one can create different ways to launch a game. 
-
 ## Enforce XR Mode For Quest
 
 Simply add the "always-xr" feature to the android export.
@@ -30,3 +26,7 @@ If no OS feature is enforcing a mode, or the in-engine selector, it will select 
 
   * Use "--flat", "--flat=true", or "--xr=false" for standard flat mode.
   * Use "--xr" or "--xr=true" for XR mode.
+
+### Providing Launch Options in Launcher App
+
+This is intended to be used with itch.io's ["Manifest actions"](https://itch.io/docs/itch/integrating/manifest-actions.html) feature, where one can create different ways to launch a game. 
