@@ -10,13 +10,11 @@ extends Node
 ## i.e. if a VR headset is connected or not.
 ##
 
-
 # Scene to load if launching Flat Mode
-export var flat_scene_path := "res://example_level/flat.tscn"
+export(PackedScene) var flat_scene_path
 
 # Scene to load if launching XR Mode
-export var xr_scene_path := "res://example_level/xr.tscn"
-
+export(PackedScene) var xr_scene_path
 
 
 func _ready():
@@ -90,7 +88,7 @@ func _autodetect() -> void:
 func launch_xr() -> void:
 	print("XR Mode Active")
 	XrOrFlatMode.current_mode = XrOrFlatMode.Mode.XR
-	if get_tree().change_scene(xr_scene_path) != OK:
+	if get_tree().change_scene_to(xr_scene_path) != OK:
 		print("Failed to load initial scene, quitting...")
 		get_tree().notification(NOTIFICATION_WM_QUIT_REQUEST)
 
@@ -99,6 +97,6 @@ func launch_xr() -> void:
 func launch_flat() -> void:
 	print("Standard Non-XR Mode Active")
 	XrOrFlatMode.current_mode = XrOrFlatMode.Mode.FLAT
-	if get_tree().change_scene(flat_scene_path) != OK:
+	if get_tree().change_scene_to(flat_scene_path) != OK:
 		print("Failed to load initial scene, quitting...")
 		get_tree().notification(NOTIFICATION_WM_QUIT_REQUEST)
