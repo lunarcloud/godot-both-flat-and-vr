@@ -1,9 +1,7 @@
-# Godot Example that Supports Both Flat & XR
+# Godot Project that Supports Both Flat & XR
 ![icon](icon.png)
 
-Get you a project template that can do both (XR and 'normal' 3D game).
-
-This project example is using Godot 3.5.1
+This project template enables your game to play as both an XR and a 'normal', a.k.a 'flat', 3D game).
 
 ## Project Settings
 MSAA "AndroidVR 2x" is recommended; it applies a 2x MSAA for both desktop and Quest platforms.
