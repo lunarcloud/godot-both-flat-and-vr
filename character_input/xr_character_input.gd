@@ -38,6 +38,7 @@ export var up_down_deadzone := 0.3
 # Controller node
 onready var _controller: ARVRController = get_parent()
 
+signal input_updated(input)
 
 func _ready():
 	# If I don't handle end/begin events, replacing the headset stops character control
@@ -76,6 +77,7 @@ func _process(_delta):
 
 	var input := Vector2(left_right, up_down)
 	XrOrFlatMode.xr_character_input = input
+	emit_signal("input_updated", input)
 
 
 # This method verifies the movement provider has a valid configuration.

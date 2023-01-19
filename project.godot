@@ -19,10 +19,10 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://xr_cam_corrected.gd"
 }, {
-"base": "Node",
+"base": "Reference",
 "class": "XRModeCharacterInput",
 "language": "GDScript",
-"path": "res://xr_character_input.gd"
+"path": "res://character_input/xr_character_input.gd"
 }, {
 "base": "Node",
 "class": "XRTools",
@@ -312,7 +312,7 @@ _global_script_classes=[ {
 _global_script_class_icons={
 "ARVRHelpers": "",
 "CorrectedARVRCamera": "",
-"XRModeCharacterInput": "res://addons/godot-xr-tools/editor/icons/function.svg",
+"XRModeCharacterInput": "",
 "XRTools": "",
 "XRToolsClimbable": "res://addons/godot-xr-tools/editor/icons/hand.svg",
 "XRToolsFallDamage": "",
