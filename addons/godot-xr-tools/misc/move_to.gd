@@ -2,13 +2,10 @@ class_name XRToolsMoveTo
 extends Node
 
 
+## XR Tools Move To Node
 ##
-## Move To node
-##
-## @desc:
-##     This node moves a control Spatial to the specified target Spatial
-##     at a requested speed.
-##
+## This node moves a control node to the specified target node at a
+## requested speed.
 
 
 ## Signal invoked when the move finishes
@@ -32,6 +29,11 @@ var _duration: float
 
 # Move time
 var _time: float = 0.0
+
+
+# Add support for is_class on XRTools classes
+func is_class(name : String) -> bool:
+	return name == "XRToolsMoveTo" or .is_class(name)
 
 
 ## Initialize the XRToolsMoveTo

@@ -3,20 +3,12 @@ class_name XRToolsMovementGrapple
 extends XRToolsMovementProvider
 
 
+## XR Tools Movement Provider for Grapple Movement
 ##
-## Movement Provider for Grapple Movement
-##
-## @desc:
-##     This script provide simple grapple based movement - "bat hook" style
-##     where the player moves directly to the grapple location. This script
-##     works with the PlayerBody attached to the  players ARVROrigin.
-##
-##     The player may have multiple movement nodes attached to different
-##     controllers to provide different types of movement.
-##
-##     The player can have a grapple node attached to each hand and the
-##     movement should not break.
-##
+## This script provide simple grapple based movement - "bat hook" style
+## where the player flings a rope to the target and swings on it.
+## This script works with the [XRToolsPlayerBody] attached to the players
+## [ARVROrigin].
 
 
 ## Signal emitted when grapple starts
@@ -26,30 +18,11 @@ signal grapple_started()
 signal grapple_finished()
 
 
-# enum our buttons, should find a way to put this more central
-enum Buttons {
-	VR_BUTTON_BY = 1,
-	VR_GRIP = 2,
-	VR_BUTTON_3 = 3,
-	VR_BUTTON_4 = 4,
-	VR_BUTTON_5 = 5,
-	VR_BUTTON_6 = 6,
-	VR_BUTTON_AX = 7,
-	VR_BUTTON_8 = 8,
-	VR_BUTTON_9 = 9,
-	VR_BUTTON_10 = 10,
-	VR_BUTTON_11 = 11,
-	VR_BUTTON_12 = 12,
-	VR_BUTTON_13 = 13,
-	VR_PAD = 14,
-	VR_TRIGGER = 15
-}
-
-# Grapple state
+## Grapple state
 enum GrappleState {
-	IDLE,			# Idle
-	FIRED,			# Grapple is fired
-	WINCHING,		# Grapple is winching
+	IDLE,			## Grapple is idle
+	FIRED,			## Grapple is fired
+	WINCHING,		## Grapple is winching
 }
 
 
@@ -60,7 +33,8 @@ export var order : int = 20
 export var grapple_length : float = 15.0
 
 ## Grapple collision mask
-export (int, LAYERS_3D_PHYSICS) var grapple_collision_mask : int = 1 setget _set_grapple_collision_mask
+export (int, LAYERS_3D_PHYSICS) \
+		var grapple_collision_mask : int = 1 setget _set_grapple_collision_mask
 
 ## Impulse speed applied to the player on first grapple
 export var impulse_speed : float = 10.0
@@ -68,15 +42,18 @@ export var impulse_speed : float = 10.0
 ## Winch speed applied to the player while the grapple is held
 export var winch_speed : float = 2.0
 
-##Probably need to add export variables for line size, maybe line material at some point so dev does not need to make children editable to do this
-##For now, right click on grapple node and make children editable to edit these facets.
+## Probably need to add export variables for line size, maybe line material at
+## some point so dev does not need to make children editable to do this.
+## For now, right click on grapple node and make children editable to edit these
+## facets.
 export var rope_width : float = 0.02
 
 ## Air friction while grappling
 export var friction : float = 0.1
 
-## Grapple button (triggers grappling movement).  Be sure this button does not conflict with other functions.
-export (Buttons) var grapple_button_id : int = Buttons.VR_TRIGGER
+## Grapple button (triggers grappling movement).  Be sure this button does not
+## conflict with other functions.
+export (XRTools.Buttons) var grapple_button_id : int = XRTools.Buttons.VR_TRIGGER
 
 # Hook related variables
 var hook_object : Spatial = null
@@ -90,15 +67,21 @@ var _grapple_button := false
 onready var _line_helper : Spatial = $LineHelper
 onready var _line : CSGCylinder = $LineHelper/Line
 
-# Get Controller node - consider way to universalize this if user wanted to attach this
-# to a gun instead of player's hand.  Could consider variable to select controller instead.
-onready var _controller : ARVRController = get_parent()
+# Get Controller node - consider way to universalize this if user wanted to
+# attach this to a gun instead of player's hand.  Could consider variable to
+# select controller instead.
+onready var _controller := ARVRHelpers.get_arvr_controller(self)
 
 # Get Raycast node
 onready var _grapple_raycast : RayCast = $Grapple_RayCast
 
 # Get Grapple Target Node
 onready var _grapple_target : Spatial = $Grapple_Target
+
+
+# Add support for is_class on XRTools classes
+func is_class(name : String) -> bool:
+	return name == "XRToolsMovementGrapple" or .is_class(name)
 
 
 # Function run when node is added to scene
@@ -113,7 +96,7 @@ func _ready():
 		grapple_length = min_hook_length
 
 	# Set ray-cast
-	_grapple_raycast.cast_to = Vector3(0, 0, -grapple_length) * ARVRServer.world_scale #Is WS necessary here?
+	_grapple_raycast.cast_to = Vector3(0, 0, -grapple_length) * ARVRServer.world_scale
 	_grapple_raycast.collision_mask = grapple_collision_mask
 
 	# Deal with line
@@ -179,7 +162,7 @@ func physics_movement(delta: float, player_body: XRToolsPlayerBody, disabled: bo
 	var hook_direction := hook_vector / hook_length
 
 	# Apply gravity
-	player_body.velocity += Vector3.UP * player_body.gravity * delta
+	player_body.velocity += player_body.gravity * delta
 
 	# Select the grapple speed
 	var speed := impulse_speed if do_impulse else winch_speed
@@ -225,9 +208,8 @@ func _set_grappling(active: bool) -> void:
 # This method verifies the movement provider has a valid configuration.
 func _get_configuration_warning():
 	# Check the controller node
-	var test_controller = get_parent()
-	if !test_controller or !test_controller is ARVRController:
-		return "Unable to find ARVR Controller node"
+	if !ARVRHelpers.get_arvr_controller(self):
+		return "This node must be within a branch of an ARVRController node"
 
 	# Call base class
 	return ._get_configuration_warning()

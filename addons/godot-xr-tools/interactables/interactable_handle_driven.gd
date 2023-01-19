@@ -2,17 +2,14 @@ class_name XRToolsInteractableHandleDriven
 extends Spatial
 
 
+## XR Tools Interactable Handle Driven script
 ##
-## Interactable Handle Driven script
+## This is the base class for interactables driven by handles. It subscribes
+## to all child handle picked_up and dropped signals, and maintains a list
+## of all grabbed handles.
 ##
-## @desc:
-##     This is the base class for interactables driven by handles. It subscribes
-##     to all child handle picked_up and dropped signals, and maintains a list
-##     of all grabbed handles.
-##
-##     When one or more handles are grabbed, the _process function is enabled
-##     to process the handle-driven movement.
-##
+## When one or more handles are grabbed, the _process function is enabled
+## to process the handle-driven movement.
 
 
 ## Signal called when this interactable is grabbed
@@ -24,6 +21,11 @@ signal released(interactable)
 
 # Array of handles currently grabbed
 var grabbed_handles := Array()
+
+
+# Add support for is_class on XRTools classes
+func is_class(name : String) -> bool:
+	return name == "XRToolsInteractableHandleDriven" or .is_class(name)
 
 
 # Called when the node enters the scene tree for the first time.

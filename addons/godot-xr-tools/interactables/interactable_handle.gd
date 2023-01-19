@@ -3,22 +3,20 @@ class_name XRToolsInteractableHandle
 extends XRToolsPickable
 
 
+## XR Tools Interactable Handle script
 ##
-## Interactable Handle script
+## The interactable handle is a (usually invisible) object extending from
+## [XRToolsPickable] that can be grabbed by the player and is used to
+## manipulate interactable objects.
 ##
-## @desc:
-##     The interactable handle is a (usually invisible) object that can be
-##     grabbed by the player and is used to manipulate interactable objects.
+## The interactible handle has an origin position of its parent. In order
+## to position interactible handles on the interactible object, the handle
+## should be placed under a parent handle-origin node, and the origin nodes
+## position set as desired.
 ##
-##     The interactible handle has an origin position of its parent. In order
-##     to position interactible handles on the interactible object, the handle
-##     should be placed under a parent handle-origin Spatial node, and the
-##     origin nodes position set as desired.
-##
-##     When the handle is released, it snaps back to its parent origin. If the
-##     handle is pulled further than its snap distance, then the handle is
-##     automatically released.
-##
+## When the handle is released, it snaps back to its parent origin. If the
+## handle is pulled further than its snap distance, then the handle is
+## automatically released.
 
 
 ## Distance from the handle origin to auto-snap the grab
@@ -27,6 +25,11 @@ export var snap_distance : float = 0.3
 
 # Handle origin spatial node
 onready var handle_origin: Spatial = get_parent()
+
+
+# Add support for is_class on XRTools classes
+func is_class(name : String) -> bool:
+	return name == "XRToolsInteractableHandle" or .is_class(name)
 
 
 # Called when this handle is added to the scene

@@ -1,20 +1,25 @@
 class_name XRToolsClimbable, "res://addons/godot-xr-tools/editor/icons/hand.svg"
 extends Spatial
 
-##
-## Climbable Object
-##
-## @desc:
-##     This script adds climbing support to any StaticBody.
-##
-##     For climbing to work, the player must have a movement provider for
-##     climbing.
-##
 
+## XR Tools Climbable Object
+##
+## This script adds climbing support to any [StaticBody3D].
+##
+## For climbing to work, the player must have an [XRToolsMovementClimb] node
+## configured appropriately.
+
+
+## If true, the grip control must be held to keep holding the climbable
 var press_to_hold : bool = true
 
 ## Dictionary of grab locations by pickup
 var grab_locations := {}
+
+
+# Add support for is_class on XRTools classes
+func is_class(name : String) -> bool:
+	return name == "XRToolsClimbable" or .is_class(name)
 
 
 # Called by XRToolsFunctionPickup

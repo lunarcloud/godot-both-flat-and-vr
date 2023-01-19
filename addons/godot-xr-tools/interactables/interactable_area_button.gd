@@ -3,14 +3,11 @@ class_name XRToolsInteractableAreaButton
 extends Area
 
 
+## XR Tools Interactable Area Button script
 ##
-## Interactable Area Button script
-##
-## @desc:
-##     The interactable area button detects objects and areas intering its
-##     area, and moves an associated button object using a tween to animate
-##     the movement.
-##
+## The interactable area button detects objects and areas intering its
+## area, and moves an associated button object using a tween to animate
+## the movement.
 
 
 ## Button pressed event
@@ -30,7 +27,7 @@ export var displacement : Vector3 = Vector3(0.0, -0.02, 0.0)
 export var duration : float = 0.1
 
 
-# Button pressed state
+## If true, the button is pressed
 var pressed : bool = false
 
 # Dictionary of trigger items pressing the button
@@ -39,12 +36,18 @@ var _trigger_items := {}
 # Tween for animating button
 var _tween: Tween
 
+
 # Node references
 onready var _button: Spatial = get_node(button)
 
 # Button positions
 onready var _button_up := _button.transform.origin
 onready var _button_down := _button_up + displacement
+
+
+# Add support for is_class on XRTools classes
+func is_class(name : String) -> bool:
+	return name == "XRToolsInteractableAreaButton" or .is_class(name)
 
 
 # Called when the node enters the scene tree for the first time.
@@ -76,11 +79,18 @@ func _on_button_entered(item: Spatial) -> void:
 		pressed = true
 
 		# Start the tween to move the button transform to the down position
-		_tween.interpolate_property(_button, "transform:origin", null, _button_down, duration, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
+		_tween.interpolate_property(
+				_button,
+				"transform:origin",
+				null,
+				_button_down,
+				duration,
+				Tween.TRANS_LINEAR,
+				Tween.EASE_IN_OUT)
 		_tween.start()
 
 		# Emit the pressed signal
-		emit_signal("button_pressed")
+		emit_signal("button_pressed",self)
 
 
 # Called when an area or body exits the button area
@@ -94,11 +104,18 @@ func _on_button_exited(item: Spatial) -> void:
 		pressed = false
 
 		# Start the tween to move the button transform to the up position
-		_tween.interpolate_property(_button, "transform:origin", null, _button_up, duration, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
+		_tween.interpolate_property(
+				_button,
+				"transform:origin",
+				null,
+				_button_up,
+				duration,
+				Tween.TRANS_LINEAR,
+				Tween.EASE_IN_OUT)
 		_tween.start()
 
 		# Emit the released signal
-		emit_signal("button_released")
+		emit_signal("button_released",self)
 
 
 # Check button configuration

@@ -78,6 +78,9 @@ func _autodetect() -> void:
 	# if we didn't specify, autodetect
 	print("Autodetecting XR or non-XR mode on whether a headset is connected...")
 	var xr_interface := ARVRServer.find_interface("OpenXR")
+	if not is_instance_valid(xr_interface):
+		xr_interface = ARVRServer.find_interface('WebXR')
+
 	if xr_interface and xr_interface.initialize():
 		launch_xr()
 	else:
@@ -88,6 +91,13 @@ func _autodetect() -> void:
 func launch_xr() -> void:
 	print("XR Mode Active")
 	XrOrFlatMode.current_mode = XrOrFlatMode.Mode.XR
+	# Run the starter
+	$XRToolsStartXR.connect("xr_started", self, "_xr_started", [], CONNECT_ONESHOT)
+	$XRToolsStartXR.initialize()
+
+
+# Handle Started signal from XR Tools' Starter
+func _xr_started():
 	if get_tree().change_scene_to(xr_scene_path) != OK:
 		print("Failed to load initial scene, quitting...")
 		get_tree().notification(NOTIFICATION_WM_QUIT_REQUEST)

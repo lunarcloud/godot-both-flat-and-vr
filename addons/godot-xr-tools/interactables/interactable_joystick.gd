@@ -2,20 +2,16 @@ class_name XRToolsInteractableJoystick
 extends XRToolsInteractableHandleDriven
 
 
+## XR Tools Interactable Joystick script
 ##
-## Interactable Joystick script
+## The interactable joystick is a joystick transform node controlled by the
+## player through [XRToolsInteractableHandle] instances.
 ##
-## @desc:
-##     The interactable joystick is a joystick transform node controlled by the
-##     player through interactable handles.
+## The joystick rotates itelf around its local X/Y axes, and so should be
+## placed as a child of a node to translate and rotate as appropriate.
 ##
-##     The joystick rotates itelf around its local X/Y axes, and so should be
-##     placed as a child of a spatial node to translate and rotate as
-##     appropriate.
-##
-##     The interactable joystick is not a rigid body, and as such will not react
-##     to any collisions.
-##
+## The interactable joystick is not a [RigidBody], and as such will not react
+## to any collisions.
 
 
 ## Signal for hinge moved
@@ -59,7 +55,7 @@ export var default_x_position : float = 0.0 setget _set_default_x_position
 ## Default Y position
 export var default_y_position : float = 0.0 setget _set_default_y_position
 
-## Move to default position on release
+## If true, the joystick moves to the default position when released
 export var default_on_release : bool = false
 
 
@@ -74,6 +70,11 @@ onready var _joystick_x_position_rad : float = deg2rad(joystick_x_position)
 onready var _joystick_y_position_rad : float = deg2rad(joystick_y_position)
 onready var _default_x_position_rad : float = deg2rad(default_x_position)
 onready var _default_y_position_rad : float = deg2rad(default_y_position)
+
+
+# Add support for is_class on XRTools classes
+func is_class(name : String) -> bool:
+	return name == "XRToolsInteractableJoystick" or .is_class(name)
 
 
 # Called when the node enters the scene tree for the first time.
@@ -104,7 +105,8 @@ func _process(_delta: float) -> void:
 	for item in grabbed_handles:
 		var handle := item as XRToolsInteractableHandle
 		var to_handle: Vector3 = global_transform.xform_inv(handle.global_transform.origin)
-		var to_handle_origin: Vector3 = global_transform.xform_inv(handle.handle_origin.global_transform.origin)
+		var to_handle_origin: Vector3 = global_transform.xform_inv(
+				handle.handle_origin.global_transform.origin)
 
 		var to_handle_x := to_handle * VECTOR_XZ
 		var to_handle_origin_x := to_handle_origin * VECTOR_XZ
