@@ -79,7 +79,7 @@ func _autodetect() -> void:
 	print("Autodetecting XR or non-XR mode on whether a headset is connected...")
 	var xr_interface := ARVRServer.find_interface("OpenXR")
 	if not is_instance_valid(xr_interface):
-		xr_interface = ARVRServer.find_interface('WebXR')
+		xr_interface = ARVRServer.find_interface("WebXR")
 
 	if xr_interface and xr_interface.initialize():
 		launch_xr()
