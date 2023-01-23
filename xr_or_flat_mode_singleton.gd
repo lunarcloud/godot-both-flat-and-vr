@@ -32,9 +32,8 @@ var _character_input_controller: ARVRController
 # Setter for "current_mode", ensures XR Server event subscribing
 func _on_mode_set(value):
 	if value == Mode.XR:
-		if ARVRServer.has_signal("openxr_session_exiting"):
-			# warning-ignore:return_value_discarded
-			ARVRServer.connect("openxr_session_exiting", self, "_on_xr_session_exiting")
+		var err = ARVRServer.connect("openxr_session_exiting", self, "_on_xr_session_exiting")
+		if not err:
 			print("Now handling the XR session exit signal")
 	current_mode = value
 
