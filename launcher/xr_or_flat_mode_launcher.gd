@@ -34,7 +34,7 @@ func _check_os_features() -> bool:
 	# if forced, use XR mode
 	if OS.has_feature("always-xr"):
 		print("Mode is baked into the build...")
-		launch_xr()
+		launch_xr()  # warning-ignore:return_value_discarded
 		return true
 
 	# if forced, use Non-XR mode
@@ -61,7 +61,7 @@ func _check_args() -> bool:
 	# if explicitly chose XR mode
 	if arguments.get("xr") == "true" or arguments.get("flat") == "false":
 		print("Using command-line arguments to determine mode...")
-		launch_xr()
+		launch_xr()  # warning-ignore:return_value_discarded
 		return true
 
 	# if explicitly chose Non-XR mode
@@ -73,32 +73,55 @@ func _check_args() -> bool:
 	return false
 
 
+# Gets a Copy of the XR interface
+func _get_xr_interface() -> ARVRInterface:
+	var xr_interface := ARVRServer.find_interface("OpenXR")
+	if not is_instance_valid(xr_interface):
+		xr_interface = ARVRServer.find_interface("WebXR")
+	return xr_interface
+
+
 # Launch XR if it can be initialized, otherwise launch flat
 func _autodetect() -> void:
 	# if we didn't specify, autodetect
 	print("Autodetecting XR or non-XR mode on whether a headset is connected...")
-	var xr_interface := ARVRServer.find_interface("OpenXR")
-	if not is_instance_valid(xr_interface):
-		xr_interface = ARVRServer.find_interface("WebXR")
+	var xr_interface := _get_xr_interface()
 
-	if xr_interface and xr_interface.initialize():
-		launch_xr()
-	else:
+	var interface_is_xr = (
+		is_instance_valid(xr_interface)
+		and xr_interface.get_capabilities() != ARVRInterface.ARVR_NONE
+	)
+
+	#Try to launch in XR - failing that, use flat
+	if not interface_is_xr or not launch_xr():
 		launch_flat()
 
 
-# Launch the XR scene
-func launch_xr() -> void:
+# Start XR and launch XR scene
+func launch_xr() -> bool:
 	print("XR Mode Active")
 	XrOrFlatMode.current_mode = XrOrFlatMode.Mode.XR
-	# Run the starter
-	$XRToolsStartXR.connect("xr_started", self, "_xr_started", [], CONNECT_ONESHOT)
-	$XRToolsStartXR.initialize()
+
+	# Run the starter if it's there to connect to
+	var starter = get_node_or_null("XRToolsStartXR")
+	if (
+		is_instance_valid(starter)
+		and starter.connect("xr_started", self, "_xr_started", [], CONNECT_ONESHOT) == OK
+	):
+		return $XRToolsStartXR.initialize()
+		# signal will be emitted from the starter's initialize chain of events
+
+	# else:
+	if _get_xr_interface().initialize():
+		_xr_started()
+		return true
+	return false
 
 
-# Handle Started signal from XR Tools' Starter
+# Actually launch the XR scene
 func _xr_started():
-	if get_tree().change_scene_to(xr_scene_path) != OK:
+	var err = get_tree().change_scene_to(xr_scene_path)
+	if err:
 		print("Failed to load initial scene, quitting...")
 		get_tree().notification(NOTIFICATION_WM_QUIT_REQUEST)
 

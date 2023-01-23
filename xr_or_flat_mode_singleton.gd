@@ -26,14 +26,16 @@ var _camera: Camera
 var _xr_origin: ARVROrigin
 
 # Cache of the XrCharacterInput's Controller, for vibration
-var _get_character_input_controller: ARVRController
+var _character_input_controller: ARVRController
 
 
 # Setter for "current_mode", ensures XR Server event subscribing
 func _on_mode_set(value):
 	if value == Mode.XR:
-		# warning-ignore:return_value_discarded
-		ARVRServer.connect("openxr_session_exiting", self, "_on_xr_session_exiting")
+		if ARVRServer.has_signal("openxr_session_exiting"):
+			# warning-ignore:return_value_discarded
+			ARVRServer.connect("openxr_session_exiting", self, "_on_xr_session_exiting")
+			print("Now handling the XR session exit signal")
 	current_mode = value
 
 
@@ -126,14 +128,13 @@ func vibrate(weak_magnitude: float, strong_magnitude: float, duration: float) ->
 
 
 func _get_character_input_controller() -> ARVRController:
-	if is_instance_valid(_get_character_input_controller):
-		return _get_character_input_controller
+	if is_instance_valid(_character_input_controller):
+		return _character_input_controller
 
 	# See if the right controller has the XRModeCharacterInput, else assume left
 	var right: ARVRController = ARVRHelpers.get_right_controller(get_xr_origin())
-	var xr_character_input = right.get_node_or_null("XRModeCharacterInput") as XRModeCharacterInput
-	if xr_character_input:
-		_get_character_input_controller = right
+	if is_instance_valid(right.get_node_or_null("XRModeCharacterInput") as XRModeCharacterInput):
+		_character_input_controller = right
 	else:
-		_get_character_input_controller = ARVRHelpers.get_left_controller(get_xr_origin())
-	return _get_character_input_controller
+		_character_input_controller = ARVRHelpers.get_left_controller(get_xr_origin())
+	return _character_input_controller

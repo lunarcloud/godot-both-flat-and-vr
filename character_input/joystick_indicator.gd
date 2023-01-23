@@ -20,6 +20,7 @@ func _ready():
 	pause_mode = true
 	frame = Frames.MID_CENTER
 
+	# warning-ignore:return_value_discarded
 	_character_input.connect("input_updated", self, "_input_updated")
 
 
