@@ -1,8 +1,7 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://character_input/xr_character_input.gd" type="Script" id=1]
 [ext_resource path="res://addons/godot-openxr/scenes/controller.gd" type="Script" id=2]
-[ext_resource path="res://addons/godot-openxr/scenes/first_person_controller_vr.gd" type="Script" id=3]
 [ext_resource path="res://hud/xr_hand_hud.tscn" type="PackedScene" id=4]
 [ext_resource path="res://character_input/Joystick-symbol/joystick_frames.tres" type="SpriteFrames" id=5]
 [ext_resource path="res://character_input/joystick_indicator.gd" type="Script" id=6]
@@ -44,7 +43,6 @@ size = Vector3( 0.025, 0.05, 0.075 )
 
 [node name="XrPlayer" type="ARVROrigin"]
 world_scale = 4.0
-script = ExtResource( 3 )
 
 [node name="ARVRCamera" type="ARVRCamera" parent="."]
 near = 0.1
